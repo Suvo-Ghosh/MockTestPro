@@ -1,7 +1,7 @@
 // src/app/(admin)/admin/dashboard/page.js
 import { connectDB } from "@/lib/db";
 import { MockTest } from "@/models/MockTest";
-import { Category } from "@/models/Category"; // Adjust path
+import { Category } from "@/models/Category";
 import Link from "next/link";
 
 export default async function AdminDashboard() {

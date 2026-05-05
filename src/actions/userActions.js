@@ -4,6 +4,7 @@
 import { connectDB } from "@/lib/db";
 import { MockTest } from "@/models/MockTest";
 import { Question } from "@/models/Question";
+import { Category } from "@/models/Category";
 import { TestAttempt } from "@/models/TestAttempt";
 import { auth } from "@/auth";
 
