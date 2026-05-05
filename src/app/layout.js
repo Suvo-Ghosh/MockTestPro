@@ -2,7 +2,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Mock Test Platform",
+  title: "MockTestPro - Mock Test Platform",
   description: "Prepare for SSC, RRB, and Government Exams",
 };
 

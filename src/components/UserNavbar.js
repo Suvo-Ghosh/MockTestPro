@@ -3,14 +3,19 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation"; // <-- Add this import
 
-// We pass the user data and the server-side logout action as props
 export default function UserNavbar({ user, onLogout }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const pathname = usePathname(); // <-- Get the current route
+
+    // Helper variables to check the active route
+    const isDashboard = pathname === "/dashboard";
+    const isMyResults = pathname === "/my-results";
 
     return (
         <nav className="bg-white border-b border-gray-200 shadow-sm relative z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-350 mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
 
                     {/* Logo */}
@@ -20,13 +25,23 @@ export default function UserNavbar({ user, onLogout }) {
                         </Link>
                     </div>
 
-                    {/* Desktop Links (Hidden on Mobile) */}
+                    {/* Desktop Links */}
                     <div className="hidden md:flex gap-6 items-center">
-                        <Link href="/dashboard" className="text-gray-600 hover:text-blue-600 font-medium">Available Tests</Link>
-                        <Link href="#" className="text-gray-600 hover:text-blue-600 font-medium">My Results</Link>
+                        <Link
+                            href="/dashboard"
+                            className={`font-medium ${isDashboard ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'}`}
+                        >
+                            Available Tests
+                        </Link>
+                        <Link
+                            href="/my-results"
+                            className={`font-medium ${isMyResults ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'}`}
+                        >
+                            My Results
+                        </Link>
                     </div>
 
-                    {/* Desktop Profile & Logout (Hidden on Mobile) */}
+                    {/* Desktop Profile & Logout */}
                     <div className="hidden md:flex items-center gap-4">
                         <div className="flex items-center gap-2">
                             <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold">
@@ -68,14 +83,14 @@ export default function UserNavbar({ user, onLogout }) {
                         <Link
                             href="/dashboard"
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                            className={`block px-3 py-2 rounded-md text-base font-medium ${isDashboard ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'}`}
                         >
                             Available Tests
                         </Link>
                         <Link
-                            href="#"
+                            href="/my-results"
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                            className={`block px-3 py-2 rounded-md text-base font-medium ${isMyResults ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'}`}
                         >
                             My Results
                         </Link>

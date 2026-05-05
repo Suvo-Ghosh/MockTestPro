@@ -10,13 +10,31 @@ import { auth } from "@/auth";
 
 // 1. Fetch available tests for the dashboard
 export async function getAvailableTests() {
+    const session = await auth();
+    if (!session?.user?.id) throw new Error("Unauthorized");
+
     await connectDB();
-    const tests = await MockTest.find({ status: "PUBLISHED" })
+
+    // 1. Find all tests the user has already attempted
+    const userAttempts = await TestAttempt.find({ userId: session.user.id }).select("testId").lean();
+    const attemptedTestIds = userAttempts.map(attempt => attempt.testId);
+
+    // 2. Fetch PUBLISHED tests, EXCLUDING the ones in the attempted array using $nin (Not In)
+    const tests = await MockTest.find({
+        status: "PUBLISHED",
+        _id: { $nin: attemptedTestIds }
+    })
         .populate("category", "shortName")
         .sort({ createdAt: -1 })
         .lean();
 
-    return tests.map(t => ({ ...t, _id: t._id.toString(), categoryId: t.category?._id?.toString() }));
+    return tests.map(t => ({
+        ...t,
+        _id: t._id.toString(),
+        category: t.category ? { ...t.category, _id: t.category._id.toString() } : null,
+        createdAt: t.createdAt ? t.createdAt.toISOString() : null,
+        updatedAt: t.updatedAt ? t.updatedAt.toISOString() : null,
+    }));
 }
 
 // 2. Fetch questions securely (NO ANSWERS SENT TO CLIENT)
@@ -110,7 +128,7 @@ export async function submitTest(testId, userAnswers, startTime) {
     return attempt._id.toString();
 }
 
-
+// 5. Test result
 export async function getTestResult(attemptId) {
     const session = await auth();
     if (!session?.user?.id) throw new Error("Unauthorized");
@@ -153,4 +171,32 @@ export async function getTestResult(attemptId) {
             } : null
         }))
     };
+}
+
+// 6. Fetch all past attempts for the "My Results" page
+export async function getUserResults() {
+    const session = await auth();
+    if (!session?.user?.id) throw new Error("Unauthorized");
+
+    await connectDB();
+
+    // Fetch attempts and populate the test details
+    const attempts = await TestAttempt.find({ userId: session.user.id })
+        .populate("testId", "title totalMarks")
+        .sort({ createdAt: -1 }) // Newest first
+        .lean();
+
+    // Sanitize for Next.js Server Components
+    return attempts.map(attempt => ({
+        ...attempt,
+        _id: attempt._id.toString(),
+        userId: attempt.userId.toString(),
+        testId: attempt.testId ? {
+            ...attempt.testId,
+            _id: attempt.testId._id.toString()
+        } : null,
+        createdAt: attempt.createdAt ? attempt.createdAt.toISOString() : null,
+        // We don't need the massive responses array for the list view, so we can omit it to save memory
+        responses: []
+    }));
 }

@@ -22,22 +22,22 @@ export default async function ResultPage({ params }) {
         : 0;
 
     return (
-        <div className="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8 bg-gray-50 min-h-screen">
+        <div className="max-w-350 mx-auto py-8 px-4 sm:px-6 lg:px-8 bg-gray-50 min-h-screen">
 
             {/* Header */}
-            <div className="flex justify-between items-center mb-8">
-                <h1 className="text-3xl font-bold text-gray-900">Performance Report</h1>
-                <Link href="/dashboard" className="text-blue-600 hover:underline font-medium">
+            <div className="flex justify-between items-center mb-4 sm:mb-8">
+                <h1 className="text-2xl sm:text-3xl font-bold text-black">Performance Report</h1>
+                <Link href="/dashboard" className="text-sm sm:text-base text-blue-600 hover:underline font-medium">
                     &larr; Back to Dashboard
                 </Link>
             </div>
 
             {/* Top Stats Cards */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-8 mb-4 sm:mb-8">
                 <div className="text-center mb-6">
-                    <h2 className="text-xl text-gray-500 font-medium">{test.title}</h2>
+                    <h2 className="text-sm sm:text-xl text-gray-500 font-medium">{test.title}</h2>
                     <div className="text-6xl font-extrabold text-blue-600 mt-2">
-                        {score.toFixed(2)} <span className="text-2xl text-gray-400 font-medium">/ {test.totalMarks}</span>
+                        {score.toFixed(2)} <span className="text-xl sm:text-2xl text-gray-400 font-medium">/ {test.totalMarks}</span>
                     </div>
                     <p className="text-gray-500 mt-2">Final Score</p>
                 </div>
@@ -100,7 +100,7 @@ export default async function ResultPage({ params }) {
                                 </span>
                             </div>
 
-                            <h4 className="text-lg text-gray-800 font-medium mb-6">
+                            <h4 className="text-sm sm:text-lg text-gray-800 font-medium mb-6">
                                 {question.questionText}
                             </h4>
 
@@ -122,7 +122,7 @@ export default async function ResultPage({ params }) {
                                     }
 
                                     return (
-                                        <div key={option.id} className={`flex items-center justify-between p-4 border rounded-md ${optionStyle}`}>
+                                        <div key={option.id} className={`flex items-center justify-between p-2 sm:p-4 border rounded-md ${optionStyle}`}>
                                             <span>
                                                 <span className="font-bold mr-2">{option.id}.</span>
                                                 {option.text}

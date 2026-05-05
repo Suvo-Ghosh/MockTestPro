@@ -6,7 +6,7 @@ export default async function UserDashboard() {
     const tests = await getAvailableTests();
 
     return (
-        <div className="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-350 mx-auto py-8 px-4 sm:px-6 lg:px-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-8">Available Mock Tests</h1>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
