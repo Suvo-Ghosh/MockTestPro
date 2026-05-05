@@ -8,10 +8,10 @@ export default async function LandingPage() {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-white">
       <div className="max-w-3xl mx-auto text-center px-4">
-        <h1 className="text-5xl font-extrabold text-gray-900 tracking-tight sm:text-6xl mb-6">
+        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight sm:text-6xl mb-6">
           Master Your Exams with <span className="text-blue-600">Confidence</span>
         </h1>
-        <p className="text-xl text-gray-500 mb-10">
+        <p className="text-sm sm:text-xl text-gray-500 mb-10">
           The ultimate mock test platform for SSC, RRB, and other competitive government exams. Real-time timers, negative marking, and detailed performance analytics.
         </p>
 
@@ -19,7 +19,7 @@ export default async function LandingPage() {
           {session ? (
             <Link
               href={session.user.role === "ADMIN" ? "/admin/dashboard" : "/dashboard"}
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold text-lg hover:bg-blue-700 transition"
+              className="bg-blue-600 text-white px-4 sm:px-8 py-2 sm:py-3 rounded-sm sm:rounded-lg font-bold text-sm sm:text-lg hover:bg-blue-700 transition"
             >
               Go to Dashboard
             </Link>
@@ -27,12 +27,12 @@ export default async function LandingPage() {
             <>
               <Link
                 href="/login"
-                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold text-lg hover:bg-blue-700 transition"
+                className="bg-blue-600 text-white px-4 sm:px-8 py-2 sm:py-3 rounded-sm sm:rounded-lg font-bold text-sm sm:text-lg hover:bg-blue-700 transition"
               >
                 Log In to Start
               </Link>
               {/* You can build a /register page later! */}
-              <Link href="/register" className="bg-gray-100 text-gray-800 px-8 py-3 rounded-lg font-bold text-lg hover:bg-gray-200 transition text-center">
+              <Link href="/register" className="bg-gray-100 text-gray-800 px-4 sm:px-8 py-2 sm:py-3 rounded-sm sm:rounded-lg font-bold text-sm sm:text-lg hover:bg-gray-200 transition text-center">
                 Create Account
               </Link>
             </>

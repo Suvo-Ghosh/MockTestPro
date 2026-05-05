@@ -18,29 +18,29 @@ export default async function AdminDashboard() {
 
     return (
         <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center mb-8">
-                <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+            <div className="flex flex-col gap-2 sm:flex-row justify-between sm:items-center mb-8">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Admin Dashboard</h1>
                 <div className="flex gap-4">
-                    <Link href="/admin/categories" className="bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded-md font-medium hover:bg-gray-50 transition">
+                    <Link href="/admin/categories" className="text-sm sm:text-base bg-white border border-gray-300 text-gray-700 py-2 px-2 sm:px-4 rounded-sm sm:rounded-md font-medium hover:bg-gray-50 transition">
                         Manage Categories
                     </Link>
-                    <Link href="/admin/tests/create" className="bg-slate-900 text-white py-2 px-4 rounded-md font-medium hover:bg-slate-800 transition">
+                    <Link href="/admin/tests/create" className="text-sm sm:text-base bg-slate-900 text-white py-2 px-2 sm:px-4 rounded-sm sm:rounded-md font-medium hover:bg-slate-800 transition">
                         + Create New Test
                     </Link>
                 </div>
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-white p-6 rounded-lg shadow border border-gray-100">
+            <div className="grid grid-cols-3 md:grid-cols-3 gap-3 sm:gap-6 mb-8">
+                <div className="bg-white p-2 sm:p-6 rounded-lg shadow border border-gray-100">
                     <h3 className="text-gray-500 text-sm font-medium">Total Mock Tests</h3>
                     <p className="text-3xl font-bold text-gray-900 mt-2">{tests.length}</p>
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow border border-gray-100">
+                <div className="bg-white p-2 sm:p-6 rounded-lg shadow border border-gray-100">
                     <h3 className="text-gray-500 text-sm font-medium">Published Tests</h3>
                     <p className="text-3xl font-bold text-green-600 mt-2">{publishedTestsCount}</p>
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow border border-gray-100">
+                <div className="bg-white p-2 sm:p-6 rounded-lg shadow border border-gray-100">
                     <h3 className="text-gray-500 text-sm font-medium">Exam Categories</h3>
                     <p className="text-3xl font-bold text-blue-600 mt-2">{categoriesCount}</p>
                 </div>

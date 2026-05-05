@@ -30,7 +30,7 @@ export default function CategoriesPage() {
     return (
         <div className="max-w-5xl mx-auto py-8 px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Form Section */}
-            <div className="md:col-span-1 bg-white p-6 rounded-lg shadow h-fit">
+            <div className="md:col-span-1 bg-white p-6 rounded-lg shadow h-fit text-black">
                 <h2 className="text-xl font-bold mb-4">Add New Category</h2>
 
                 {state?.success && <p className="text-green-600 text-sm mb-4 bg-green-50 p-2 rounded">{state.success}</p>}
@@ -54,7 +54,7 @@ export default function CategoriesPage() {
             </div>
 
             {/* List Section */}
-            <div className="md:col-span-2 bg-white p-6 rounded-lg shadow">
+            <div className="md:col-span-2 bg-white p-6 rounded-lg shadow text-black">
                 <h2 className="text-xl font-bold mb-4">Existing Categories</h2>
                 <div className="space-y-4">
                     {categories.length === 0 ? <p className="text-gray-500">No categories found.</p> : null}

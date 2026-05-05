@@ -15,7 +15,7 @@ export default async function AdminLayout({ children }) {
 
                         {/* Left side Links */}
                         <div className="flex items-center gap-8">
-                            <span className="font-bold text-xl tracking-wider">ADMIN PORTAL</span>
+                            <span className="font-bold text-xl sm:tracking-wider">ADMIN PORTAL</span>
                             <div className="hidden md:flex gap-4">
                                 <Link href="/admin/dashboard" className="text-gray-300 hover:text-white font-medium">Dashboard</Link>
                                 <Link href="/admin/categories" className="text-gray-300 hover:text-white font-medium">Categories</Link>

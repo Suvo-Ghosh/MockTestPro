@@ -22,7 +22,6 @@ export async function getAvailableTests() {
 export async function getLiveTestQuestions(testId) {
     await connectDB();
 
-    // Notice we explicitly EXCLUDE correctOptionId and solutionExplanation
     const questions = await Question.find({ testId })
         .select("-correctOptionId -solutionExplanation")
         .lean();
@@ -31,13 +30,28 @@ export async function getLiveTestQuestions(testId) {
         ...q,
         _id: q._id.toString(),
         testId: q.testId.toString(),
+        // We strictly map the options to strip out the hidden Mongoose ObjectIds
+        options: q.options.map(opt => ({
+            id: opt.id,
+            text: opt.text
+        }))
     }));
 }
 
 export async function getTestMetadata(testId) {
     await connectDB();
     const test = await MockTest.findById(testId).lean();
-    return { ...test, _id: test._id.toString() };
+
+    if (!test) return null;
+
+    return {
+        ...test,
+        _id: test._id.toString(),
+        // Convert the category ObjectId and Date objects to plain strings
+        category: test.category ? test.category.toString() : null,
+        createdAt: test.createdAt ? test.createdAt.toISOString() : null,
+        updatedAt: test.updatedAt ? test.updatedAt.toISOString() : null,
+    };
 }
 
 // 3. Evaluate and grade the test
