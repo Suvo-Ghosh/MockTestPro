@@ -27,16 +27,16 @@ export default async function ResultPage({ params }) {
             {/* Header */}
             <div className="flex justify-between items-center mb-4 sm:mb-8">
                 <h1 className="text-2xl sm:text-3xl font-bold text-black">Performance Report</h1>
-                <Link href="/dashboard" className="text-sm sm:text-base text-blue-600 hover:underline font-medium">
+                <Link href="/dashboard" className="text-sm ml-auto sm:text-base text-blue-600 hover:underline font-medium">
                     &larr; Back to Dashboard
                 </Link>
             </div>
 
             {/* Top Stats Cards */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-8 mb-4 sm:mb-8">
-                <div className="text-center mb-6">
+                <div className="text-center mb-3 sm:mb-6">
                     <h2 className="text-sm sm:text-xl text-gray-500 font-medium">{test.title}</h2>
-                    <div className="text-6xl font-extrabold text-blue-600 mt-2">
+                    <div className="text-4xl sm:text-6xl font-extrabold text-blue-600 mt-2">
                         {score.toFixed(2)} <span className="text-xl sm:text-2xl text-gray-400 font-medium">/ {test.totalMarks}</span>
                     </div>
                     <p className="text-gray-500 mt-2">Final Score</p>
@@ -63,7 +63,7 @@ export default async function ResultPage({ params }) {
             </div>
 
             {/* Detailed Analysis Section */}
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Detailed Analysis</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-3 sm:mb-6">Detailed Analysis</h3>
 
             <div className="space-y-6">
                 {responses.map((response, index) => {
@@ -93,18 +93,18 @@ export default async function ResultPage({ params }) {
                     return (
                         <div key={response._id} className={`bg-white rounded-lg shadow-sm border-l-4 ${borderClass} p-6`}>
 
-                            <div className="flex justify-between items-start mb-4">
+                            <div className="flex justify-between items-start mb-2 sm:mb-4">
                                 <span className="font-bold text-gray-900">Question {index + 1}</span>
                                 <span className={`text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide ${badgeClass}`}>
                                     {statusText}
                                 </span>
                             </div>
 
-                            <h4 className="text-sm sm:text-lg text-gray-800 font-medium mb-6">
+                            <h4 className="text-sm sm:text-lg text-gray-800 font-medium mb-3 sm:mb-6">
                                 {question.questionText}
                             </h4>
 
-                            <div className="space-y-3 mb-6">
+                            <div className="space-y-3 mb-3 sm:mb-6">
                                 {question.options.map((option) => {
                                     const isUserChoice = response.selectedOptionId === option.id;
                                     const isActualCorrectChoice = question.correctOptionId === option.id;

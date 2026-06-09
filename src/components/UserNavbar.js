@@ -9,6 +9,10 @@ export default function UserNavbar({ user, onLogout }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname(); // <-- Get the current route
 
+    if (pathname.startsWith("/test/")) {
+        return null;
+    }
+
     // Helper variables to check the active route
     const isDashboard = pathname === "/dashboard";
     const isMyResults = pathname === "/my-results";
