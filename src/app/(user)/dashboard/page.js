@@ -6,10 +6,10 @@ export default async function UserDashboard() {
     const tests = await getAvailableTests();
 
     return (
-        <div className="max-w-350 mx-auto py-8 px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-8">Available Mock Tests</h1>
+        <div className="max-w-350 mx-auto py-3 sm:py-8 px-4 sm:px-6 lg:px-8">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-8">Available Mock Tests</h1>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {tests.length === 0 ? (
                     <p className="text-gray-500">No tests available right now.</p>
                 ) : (

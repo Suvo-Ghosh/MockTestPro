@@ -18,14 +18,14 @@ export default function UserNavbar({ user, onLogout }) {
     const isMyResults = pathname === "/my-results";
 
     return (
-        <nav className="bg-white border-b border-gray-200 shadow-sm relative z-50">
+        <nav className="bg-white border-b border-gray-200 shadow-sm relative z-999">
             <div className="max-w-350 mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
 
                     {/* Logo */}
                     <div className="flex items-center">
-                        <Link href="/dashboard" className="flex items-center font-extrabold text-xl md:text-2xl text-blue-600">
-                            <img src="logo.png" className="h-6 md:h-10 w-6 md:w-10"/>
+                        <Link href="/dashboard" className="flex items-center gap-1 font-extrabold text-xl md:text-2xl text-blue-600">
+                            <img src="logo.png" className="h-8 md:h-10 w-8 md:w-10"/>
                             MockTest<span className="text-gray-900">Pro</span>
                         </Link>
                     </div>
