@@ -1,0 +1,14 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "app.vercel.mock_test_pro.twa",
+            "sha256_cert_fingerprints": [
+                "D3:67:78:B4:09:6C:01:1F:9B:02:45:4A:76:CD:F2:E5:06:48:A4:ED:0E:3E:A9:4E:87:B3:6E:DA:B0:0B:16:12"
+            ]
+        }
+    }
+]
