@@ -24,7 +24,8 @@ export default function UserNavbar({ user, onLogout }) {
 
                     {/* Logo */}
                     <div className="flex items-center">
-                        <Link href="/dashboard" className="font-extrabold text-2xl text-blue-600">
+                        <Link href="/dashboard" className="flex items-center font-extrabold text-xl md:text-2xl text-blue-600">
+                            <img src="logo.png" className="h-6 md:h-10 w-6 md:w-10"/>
                             MockTest<span className="text-gray-900">Pro</span>
                         </Link>
                     </div>
@@ -33,13 +34,13 @@ export default function UserNavbar({ user, onLogout }) {
                     <div className="hidden md:flex gap-6 items-center">
                         <Link
                             href="/dashboard"
-                            className={`font-medium ${isDashboard ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'}`}
+                            className={`font-medium ${isDashboard ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-blue-600'}`}
                         >
                             Available Tests
                         </Link>
                         <Link
                             href="/my-results"
-                            className={`font-medium ${isMyResults ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'}`}
+                            className={`font-medium ${isMyResults ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-blue-600'}`}
                         >
                             My Results
                         </Link>
@@ -55,7 +56,7 @@ export default function UserNavbar({ user, onLogout }) {
                         </div>
 
                         <form action={onLogout}>
-                            <button type="submit" className="text-gray-500 hover:text-red-600 text-sm font-medium transition">
+                            <button type="submit" className="cursor-pointer text-red-600 text-sm font-medium transition">
                                 Logout
                             </button>
                         </form>

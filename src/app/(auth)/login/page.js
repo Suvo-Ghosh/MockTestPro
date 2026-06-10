@@ -2,29 +2,12 @@
 "use client";
 
 import { useActionState } from "react";
-import { useFormStatus } from "react-dom";
 import { loginUser } from "@/actions/authActions";
 import Link from "next/link";
 
-// A separate component is required to use useFormStatus() 
-// It automatically detects when the parent <form> is submitting
-function SubmitButton() {
-    const { pending } = useFormStatus();
-
-    return (
-        <button
-            type="submit"
-            disabled={pending}
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-        >
-            {pending ? "Signing in..." : "Sign in"}
-        </button>
-    );
-}
-
 export default function LoginPage() {
-    // Hook up our Server Action to the form state
-    const [state, formAction] = useActionState(loginUser, null);
+    // React 19 allows us to grab 'isPending' directly as the third array item!
+    const [state, formAction, isPending] = useActionState(loginUser, null);
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -43,8 +26,8 @@ export default function LoginPage() {
                     </p>
                 </div>
 
-                {/* Form */}
-                <form className="mt-8 space-y-6" action={formAction}>
+                {/* Form - Lowers opacity slightly when loading */}
+                <form className={`mt-8 space-y-6 transition-opacity duration-300 ${isPending ? 'opacity-70 pointer-events-none' : ''}`} action={formAction}>
 
                     {/* Error Message Display */}
                     {state?.error && (
@@ -64,7 +47,8 @@ export default function LoginPage() {
                                 type="email"
                                 autoComplete="email"
                                 required
-                                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-500 text-black focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                disabled={isPending}
+                                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-500 text-black focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm disabled:bg-gray-100"
                                 placeholder="you@example.com"
                             />
                         </div>
@@ -79,14 +63,28 @@ export default function LoginPage() {
                                 type="password"
                                 autoComplete="current-password"
                                 required
-                                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                                placeholder="••••••••"
+                                disabled={isPending}
+                                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm disabled:bg-gray-100"
+                                placeholder="********"
                             />
                         </div>
                     </div>
 
                     <div>
-                        <SubmitButton />
+                        <button
+                            type="submit"
+                            disabled={isPending}
+                            className="w-full cursor-pointer flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-70 transition-colors"
+                        >
+                            {/* SVG Spinner that only shows when pending */}
+                            {isPending && (
+                                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            )}
+                            {isPending ? "Signing in..." : "Sign in"}
+                        </button>
                     </div>
                 </form>
 

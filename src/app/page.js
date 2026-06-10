@@ -1,6 +1,6 @@
 // src/app/page.js
-import Link from "next/link";
 import { auth } from "@/auth";
+import TransitionButton from "@/components/TransitionButton"; // Import the new component
 
 export default async function LandingPage() {
   const session = await auth();
@@ -17,24 +17,27 @@ export default async function LandingPage() {
 
         <div className="flex justify-center gap-4">
           {session ? (
-            <Link
+            <TransitionButton
               href={session.user.role === "ADMIN" ? "/admin/dashboard" : "/dashboard"}
-              className="bg-blue-600 text-white px-4 sm:px-8 py-2 sm:py-3 rounded-sm sm:rounded-lg font-bold text-sm sm:text-lg hover:bg-blue-700 transition"
+              className="bg-blue-600 text-white cursor-pointer px-4 sm:px-8 py-2 sm:py-3 rounded-sm sm:rounded-lg font-bold text-sm sm:text-lg hover:bg-blue-700 transition"
             >
               Go to Dashboard
-            </Link>
+            </TransitionButton>
           ) : (
             <>
-              <Link
+              <TransitionButton
                 href="/login"
-                className="bg-blue-600 text-white px-4 sm:px-8 py-2 sm:py-3 rounded-sm sm:rounded-lg font-bold text-sm sm:text-lg hover:bg-blue-700 transition"
+                className="bg-blue-600 text-white cursor-pointer px-4 sm:px-8 py-2 sm:py-3 rounded-sm sm:rounded-lg font-bold text-sm sm:text-lg hover:bg-blue-700 transition"
               >
                 Log In to Start
-              </Link>
-              {/* You can build a /register page later! */}
-              <Link href="/register" className="bg-gray-100 text-gray-800 px-4 sm:px-8 py-2 sm:py-3 rounded-sm sm:rounded-lg font-bold text-sm sm:text-lg hover:bg-gray-200 transition text-center">
+              </TransitionButton>
+
+              <TransitionButton
+                href="/register"
+                className="bg-gray-100 text-gray-800 cursor-pointer px-4 sm:px-8 py-2 sm:py-3 rounded-sm sm:rounded-lg font-bold text-sm sm:text-lg hover:bg-gray-200 transition text-center"
+              >
                 Create Account
-              </Link>
+              </TransitionButton>
             </>
           )}
         </div>

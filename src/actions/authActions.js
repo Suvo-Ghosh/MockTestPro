@@ -12,14 +12,26 @@ export async function loginUser(prevState, formData) {
     const email = formData.get("email");
     const password = formData.get("password");
 
+    let finalRedirectUrl = "/dashboard"; // Default for standard users
+
     try {
-        // We don't need to specify a redirect path here because your middleware.js 
-        // will automatically route them to /admin/dashboard or /dashboard based on their role!
+        await connectDB();
+
+        // 1. Check the user's role BEFORE we call signIn
+        // This prevents the middleware from having to "double bounce" the redirect
+        const existingUser = await User.findOne({ email }).lean();
+
+        if (existingUser && existingUser.role === "ADMIN") {
+            finalRedirectUrl = "/admin/dashboard";
+        }
+
+        // 2. Pass the exact final URL to NextAuth v5
         await signIn("credentials", {
             email,
             password,
-            redirect: true,
+            redirectTo: finalRedirectUrl, // Use redirectTo, not redirect: true
         });
+
     } catch (error) {
         if (error instanceof AuthError) {
             switch (error.type) {
@@ -35,7 +47,7 @@ export async function loginUser(prevState, formData) {
 }
 
 export async function handleLogout() {
-    await signOut({ redirectTo: "/" }); // Send them back to the landing page
+    await signOut({ redirectTo: "/" });
 }
 
 export async function registerUser(prevState, formData) {
@@ -54,21 +66,18 @@ export async function registerUser(prevState, formData) {
     try {
         await connectDB();
 
-        // 1. Check if user already exists
         const existingUser = await User.findOne({ email }).lean();
         if (existingUser) {
             return { error: "An account with this email already exists." };
         }
 
-        // 2. Hash the password securely
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // 3. Create the user in the database
         await User.create({
             name,
             email,
             password: hashedPassword,
-            role: "USER", // By default, everyone who signs up is a standard user
+            role: "USER",
         });
 
     } catch (error) {
@@ -76,6 +85,5 @@ export async function registerUser(prevState, formData) {
         return { error: "Something went wrong. Please try again." };
     }
 
-    // Next.js requires redirect() to be called OUTSIDE the try-catch block!
     redirect("/login");
 }
